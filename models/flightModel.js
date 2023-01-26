@@ -5,7 +5,6 @@ const flightSchema = new Schema({
     title: {
         type: String,
         required: true,
-        unique: true,
     },
     starting: {
         type: String,
@@ -65,7 +64,16 @@ const flightSchema = new Schema({
         type: Number,
         required: true,
     },
-
+    comments: {
+        type: [String],
+        default: [],
+        required: false,
+    },
+    wroteComment: {
+        type: [String],
+        default: [],
+        required: false,
+    }
 });
 
 const Flight = mongoose.model("flight", flightSchema);

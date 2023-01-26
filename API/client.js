@@ -57,8 +57,21 @@ router.post("/admin-client", (req, res) => {
 });
 
 router.put("/client/:id", async (req, res) => {
-  await Client.findOneAndUpdate(req.params.id, { $set: req.body })
-  res.send('Success')
+  Client.findById(req.params.id)
+    .then(async (result) => {
+      result.username = req.body.username;
+      result.password = req.body.password;
+      result.name = req.body.name;
+      result.email = req.body.email;
+      result.phone = req.body.phone;
+      result.favoritePlace = req.body.favoritePlace;
+      result.isAdmin = req.body.isAdmin;
+      await result.save();
+      res.send('success')
+    })
+    .catch((err) => {
+      console.log(`${err} : EditOneClient`);
+    });
 });
 
 router.delete("/delete-client/:id", (req, res) => {
