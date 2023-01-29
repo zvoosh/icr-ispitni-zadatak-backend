@@ -2,6 +2,7 @@ var express = require("express");
 const Flight = require("../models/flightModel");
 var fs = require("fs");
 var multer = require("multer");
+const mongoose = require("mongoose");
 
 var router = express.Router();
 var date_now = Date.now();
@@ -52,6 +53,7 @@ router.get('/flight/:id', (req, res) => {
 
 router.post('/flight', upload.single('productImage'), (req, res) => {
     const flight = new Flight({
+        _someId: new mongoose.Types.ObjectId,
         title: req.body.title,
         starting: req.body.starting,
         destination: req.body.destination,
@@ -79,6 +81,7 @@ router.post('/flight', upload.single('productImage'), (req, res) => {
 
 router.put('/flight/:id', upload.single('productImage'), async (req, res) => {
     Flight.findById(req.params.id).then(async (result) => {
+        result._someId = new mongoose.Types.ObjectId;
         result.title = req.body.title;
         result.starting = req.body.starting;
         result.destination = req.body.destination;
