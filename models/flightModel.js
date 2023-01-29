@@ -2,9 +2,11 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const flightSchema = new Schema({
+    _someId: { type: Schema.Types.ObjectId },
     title: {
         type: String,
         required: true,
+        unique: false,
     },
     starting: {
         type: String,
